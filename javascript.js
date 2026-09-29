@@ -23,11 +23,22 @@
 // else
 // エラーメッセージを表示
 // IFEND
+
+// マスを塗る色をランダムにする機能
+// ランダムに0~255の数字を返す関数
+//　r,g,b,をランダムに生成し、色を変える
+// 色を変えたマスには新たなクラスを与える
+// クラスを持つグリッドは色が変わらないようにする
+// リセットの時にこのクラスは消去する
 const gridContainer = document.querySelector("#gridContainer");
 const form = document.querySelector("form");
 const resetButton = document.querySelector(".resetButton");
 
 makeCanvas(16);
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function makeCanvas(size) {
   for (let i = 0; i < size * size; i++) {
@@ -35,8 +46,15 @@ function makeCanvas(size) {
     grid.classList.add("grid");
     const widthPercent = Math.round((100 / size) * 100) / 100;
     grid.style.width = `${widthPercent}%`;
+    // 塗られていなければ、ランダムに色を塗る
     grid.addEventListener("mouseenter", () => {
-      grid.style.backgroundColor = "red";
+      if (!grid.classList.contains("painted")) {
+        const r = getRandomInt(0, 255);
+        const g = getRandomInt(0, 255);
+        const b = getRandomInt(0, 255);
+        grid.style.backgroundColor = `rgb(${r},${g},${b})`;
+        grid.classList.toggle("painted");
+      }
     });
     gridContainer.appendChild(grid);
   }
@@ -57,6 +75,7 @@ form.addEventListener("submit", (event) => {
 
 resetButton.addEventListener("click", () => {
   for (const grid of gridContainer.children) {
+    grid.classList.remove("painted");
     grid.style.backgroundColor = "white";
   }
 });
