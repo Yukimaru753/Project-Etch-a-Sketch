@@ -32,6 +32,7 @@
 // リセットの時にこのクラスは消去する
 
 // 同じマスを通るたびに10%ずつ暗くする機能
+// マスを通った回数を記録する
 // 初期の色の不透明度を10%に設定
 // IF
 // 色が塗られている
@@ -52,31 +53,28 @@ function makeCanvas(size) {
   for (let i = 0; i < size * size; i++) {
     const grid = document.createElement("div");
     grid.classList.add("grid");
+    grid.dataset.count = 0;
     const widthPercent = Math.round((100 / size) * 100) / 100;
     grid.style.width = `${widthPercent}%`;
     // 塗られていなければ、ランダムに色を塗る
     // 塗られていれば、10%暗くする
-    let opacity = 0.1;
     grid.addEventListener("mouseenter", () => {
       if (!grid.classList.contains("painted")) {
         const r = getRandomInt(0, 255);
         const g = getRandomInt(0, 255);
         const b = getRandomInt(0, 255);
+        grid.dataset.count = Number(grid.dataset.count) + 1;
         grid.style.backgroundColor = `rgb(${r},${g},${b})`;
-        grid.style.opacity = `${opacity}`;
+        grid.style.opacity = "0.1";
         grid.classList.toggle("painted");
-      } else {
-        opacity += 0.1;
+      } else if (Number(grid.dataset.count) < 10) {
+        grid.dataset.count = Number(grid.dataset.count) + 1;
+        const count = Number(grid.dataset.count)
+        let opacity = count / 10;
+        console.log(opacity);
         grid.style.opacity = `${opacity}`;
       }
     });
-    resetButton.addEventListener("click", () => {
-        opacity = 0.1;
-        grid.style.opacity = `1`;
-        grid.classList.remove("painted");
-        grid.style.backgroundColor = "white";
-      }
-    )
     gridContainer.appendChild(grid);
   }
 }
@@ -94,3 +92,11 @@ form.addEventListener("submit", (event) => {
   }
 });
 
+resetButton.addEventListener("click", () => {
+  for (const grid of gridContainer.children) {
+    grid.style.opacity = `1`;
+    grid.dataset.count = 0;
+    grid.classList.remove("painted");
+    grid.style.backgroundColor = "white";
+  }
+});
