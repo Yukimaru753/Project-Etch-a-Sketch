@@ -30,6 +30,14 @@
 // 色を変えたマスには新たなクラスを与える
 // クラスを持つグリッドは色が変わらないようにする
 // リセットの時にこのクラスは消去する
+
+// 同じマスを通るたびに10%ずつ暗くする機能
+// 初期の色の不透明度を10%に設定
+// IF
+// 色が塗られている
+// 不透明度を10%上昇
+// IFEND
+// リセット時にopecityも初期化
 const gridContainer = document.querySelector("#gridContainer");
 const form = document.querySelector("form");
 const resetButton = document.querySelector(".resetButton");
@@ -47,15 +55,28 @@ function makeCanvas(size) {
     const widthPercent = Math.round((100 / size) * 100) / 100;
     grid.style.width = `${widthPercent}%`;
     // 塗られていなければ、ランダムに色を塗る
+    // 塗られていれば、10%暗くする
+    let opacity = 0.1;
     grid.addEventListener("mouseenter", () => {
       if (!grid.classList.contains("painted")) {
         const r = getRandomInt(0, 255);
         const g = getRandomInt(0, 255);
         const b = getRandomInt(0, 255);
         grid.style.backgroundColor = `rgb(${r},${g},${b})`;
+        grid.style.opacity = `${opacity}`;
         grid.classList.toggle("painted");
+      } else {
+        opacity += 0.1;
+        grid.style.opacity = `${opacity}`;
       }
     });
+    resetButton.addEventListener("click", () => {
+        opacity = 0.1;
+        grid.style.opacity = `1`;
+        grid.classList.remove("painted");
+        grid.style.backgroundColor = "white";
+      }
+    )
     gridContainer.appendChild(grid);
   }
 }
@@ -73,9 +94,3 @@ form.addEventListener("submit", (event) => {
   }
 });
 
-resetButton.addEventListener("click", () => {
-  for (const grid of gridContainer.children) {
-    grid.classList.remove("painted");
-    grid.style.backgroundColor = "white";
-  }
-});
