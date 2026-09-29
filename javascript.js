@@ -66,12 +66,11 @@ function makeCanvas(size) {
         grid.dataset.count = Number(grid.dataset.count) + 1;
         grid.style.backgroundColor = `rgb(${r},${g},${b})`;
         grid.style.opacity = "0.1";
-        grid.classList.toggle("painted");
+        grid.classList.add("painted");
       } else if (Number(grid.dataset.count) < 10) {
         grid.dataset.count = Number(grid.dataset.count) + 1;
         const count = Number(grid.dataset.count)
         let opacity = count / 10;
-        console.log(opacity);
         grid.style.opacity = `${opacity}`;
       }
     });
