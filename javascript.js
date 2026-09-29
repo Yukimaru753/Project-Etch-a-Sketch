@@ -11,23 +11,45 @@
 // 各マスにmouseenterイベントを設定
 // マウスが上を通ると背景色を変える
 
-// 入力フォームからsizeを受け取る
+// 入力フォームからsizeを受け取り、グリッドを作り直す機能
+// フォームの送信動作をキャンセル
+// フォームから入力を受ける
+// 入力を数字に変更し保存
+// 入力欄を空にする
 // IF
 // sizeが整数かつ0~100
-// 現在のgridを消去
+// グリッドコンテナを空にする
 // size * sizeのキャンバスを作る
 // else
 // エラーメッセージを表示
 // IFEND
 const gridContainer = document.querySelector("#gridContainer");
+const form = document.querySelector("form");
 
-for (let i = 0; i < 16 * 16; i++) {
+makeCanvas(16);
+
+function makeCanvas(size) {
+  for (let i = 0; i < size * size; i++) {
     const grid = document.createElement("div");
     grid.classList.add("grid");
-    grid.textContent = "a";
+    const widthPercent = Math.round((100 / size) * 100) / 100;
+    grid.style.width = `${widthPercent}%`;
     grid.addEventListener("mouseenter", () => {
-        grid.style.backgroundColor = "red";
+      grid.style.backgroundColor = "red";
     });
     gridContainer.appendChild(grid);
+  }
 }
 
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const input = document.querySelector("#size");
+  const size = Number(input.value);
+  if (!Number.isInteger(size) || size < 0 || 100 < size) {
+    alert("0 ~ 100 の整数で入力してください");
+  } else {
+    input.value = "";
+    gridContainer.textContent = "";
+    makeCanvas(size);
+  }
+});

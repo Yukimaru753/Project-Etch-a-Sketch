@@ -4,9 +4,13 @@
   flex-wrap: wrap;
 }
 
-/* 1マスの横幅を全体の1/16にする */
-
+/* width : height = 1 : 1 */
 .grid {
-  width: 6.25%;
   aspect-ratio: 1 / 1;
+  border: 1px dashed black;
+}
+
+.form {
+    font-size: 22px;
+    margin: 20px;
 }
