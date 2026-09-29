@@ -25,6 +25,7 @@
 // IFEND
 const gridContainer = document.querySelector("#gridContainer");
 const form = document.querySelector("form");
+const resetButton = document.querySelector(".resetButton");
 
 makeCanvas(16);
 
@@ -46,10 +47,16 @@ form.addEventListener("submit", (event) => {
   const input = document.querySelector("#size");
   const size = Number(input.value);
   if (!Number.isInteger(size) || size < 0 || 100 < size) {
-    alert("0 ~ 100 の整数で入力してください");
+    alert("0 ~ 100 の整数を入力してください");
   } else {
     input.value = "";
     gridContainer.textContent = "";
     makeCanvas(size);
+  }
+});
+
+resetButton.addEventListener("click", () => {
+  for (const grid of gridContainer.children) {
+    grid.style.backgroundColor = "white";
   }
 });

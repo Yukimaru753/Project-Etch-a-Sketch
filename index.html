@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form class="form">
-      <label for="size">grid size:</label>
-      <input type="number" name="size" id="size" />
-      <button type="submit">変更</button>
-    </form>
+    <div class="container">
+      <form class="form">
+        <label for="size">grid size:</label>
+        <input type="number" name="size" id="size" />
+        <button type="submit">変更</button>
+      </form>
+      <button class="resetButton">reset</button>
+    </div>
+
     <div id="gridContainer"></div>
     <script src="javascript.js"></script>
   </body>

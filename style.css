@@ -1,4 +1,10 @@
-/* コンテナをflexboxにする */
+/* リセットボタンとフォームの親 */
+.container {
+    display: flex;
+    
+}
+
+/* グリッドコンテナをflexboxにする */
 #gridContainer {
   display: flex;
   flex-wrap: wrap;
@@ -12,5 +18,10 @@
 
 .form {
     font-size: 22px;
-    margin: 20px;
+    margin:20px;
+}
+
+.resetButton {
+    font-size: 22px;
+    margin:20px;
 }
