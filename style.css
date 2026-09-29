@@ -1,0 +1,12 @@
+/* コンテナをflexboxにする */
+#gridContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* 1マスの横幅を全体の1/16にする */
+
+.grid {
+  width: 6.25%;
+  aspect-ratio: 1 / 1;
+}
