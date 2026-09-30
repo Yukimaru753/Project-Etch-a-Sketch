@@ -95,7 +95,7 @@ function makeCanvas(size) {
       } else if (Number(grid.dataset.count) < 10) {
         grid.dataset.count = Number(grid.dataset.count) + 1;
         const count = Number(grid.dataset.count)
-        let opacity = count / 10;
+        const opacity = count / 10;
         grid.style.opacity = `${opacity}`;
       }
     });
