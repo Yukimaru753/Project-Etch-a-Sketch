@@ -1,17 +1,11 @@
-/* リセットボタンとフォームの親 */
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding-top: 20px;
-  padding-bottom: 30px;
-}
-
+/* タイトル */
 .title {
   margin-bottom: 0;
 }
 
 /* グリッドコンテナをflexboxにする */
+/* グリッドが折り返すようにする */
+/* 横幅の最大値を設定し、縮小できるようにする */
 #gridContainer {
   display: flex;
   flex-wrap: wrap;
@@ -20,16 +14,29 @@
 }
 
 /* width : height = 1 : 1 */
+/* ボーダーも横幅に含める */
 .grid {
   box-sizing: border-box;
   aspect-ratio: 1 / 1;
   border: 1px dashed black;
 }
 
+/* リセットボタンとフォームの親 */
+/* 折り返すようにする */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+/* 入力フォーム */
 .form {
   font-size: 22px;
 }
 
+/* リセットボタン */
 .resetButton {
   font-size: 22px;
 }
